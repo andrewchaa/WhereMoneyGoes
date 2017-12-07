@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Text.RegularExpressions;
 
 namespace Report
 {
@@ -17,10 +18,32 @@ namespace Report
             
             foreach (var line in lines)
             {
-                var records = line.Replace("\"", string.Empty).Split(',');
-                expenses.Add(new Expense(records[0], records[1], records[2], records[3], records[4]));
+                var records = SplitCsv(line).ToArray();
+                var expense = Process(records);
+                expenses.Add(expense);
             }
         }
+
+        private static Expense Process(string[] records)
+        {
+            return new Expense(
+                records[0].Replace("\"", string.Empty), 
+                records[1], 
+                records[2].Replace("\"", string.Empty), 
+                records[3].Replace("\"", string.Empty), 
+                records[4].Replace("\"", string.Empty)
+                );
+        }
+        
+        public static IEnumerable<string> SplitCsv(string input)
+        {
+            var csvSplit = new Regex("(?:^|,)(\"(?:[^\"]+|\"\")*\"|[^,]*)", RegexOptions.Compiled);
+
+            foreach (Match match in csvSplit.Matches(input))
+            {
+                yield return match.Value.TrimStart(',');
+            }
+        }        
     }
 
     class Expense
