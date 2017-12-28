@@ -315,3 +315,4 @@ OpenCover/
 ASALocalRun/
 
 .DS_Store
+.vscode/
