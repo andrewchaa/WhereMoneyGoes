@@ -6,12 +6,22 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.CodeAnalysis;
+using Microsoft.Extensions.Logging;
+using QuickExpense.Domain.Models;
 
 namespace QuickExpense.Controllers
 {
     [Route("api/[controller]")]
     public class TransactionsController : Controller
     {
+        private readonly ILogger _logger;
+
+        public TransactionsController(ILogger<TransactionsController> logger)
+        {
+            _logger = logger;
+        }
+        
         // GET api/values
         [HttpGet]
         public IEnumerable<string> Get()
@@ -33,7 +43,9 @@ namespace QuickExpense.Controllers
             using (var stream = new MemoryStream())
             {
                 await file.CopyToAsync(stream);
-                return Ok(Encoding.UTF8.GetString(stream.ToArray()));
+                var csvs = Csv.From(Encoding.UTF8.GetString(stream.ToArray()));
+                _logger.LogInformation($"Count: {csvs.Count}");
+                return Ok(csvs);
             }
         }
 

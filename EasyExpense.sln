@@ -4,6 +4,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Report", "Report\Report.csp
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QuickExpense", "src\web\QuickExpense.csproj", "{96F7CF1F-9196-49B0-823C-DED6A72A3651}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QuickExpense.Tests", "src\QuickExpense.Tests\QuickExpense.Tests.csproj", "{84C56437-AFF4-496C-9281-155BCCBA31CF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -18,5 +20,9 @@ Global
 		{96F7CF1F-9196-49B0-823C-DED6A72A3651}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{96F7CF1F-9196-49B0-823C-DED6A72A3651}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{96F7CF1F-9196-49B0-823C-DED6A72A3651}.Release|Any CPU.Build.0 = Release|Any CPU
+		{84C56437-AFF4-496C-9281-155BCCBA31CF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{84C56437-AFF4-496C-9281-155BCCBA31CF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{84C56437-AFF4-496C-9281-155BCCBA31CF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{84C56437-AFF4-496C-9281-155BCCBA31CF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

@@ -20,6 +20,11 @@ namespace QuickExpense
         public static IWebHost BuildWebHost(string[] args) =>
             WebHost.CreateDefaultBuilder(args)
                 .UseStartup<Startup>()
+                .ConfigureLogging((h, l) =>
+                {
+                    l.AddConsole();
+                    l.AddDebug();
+                })
                 .Build();
     }
 }
