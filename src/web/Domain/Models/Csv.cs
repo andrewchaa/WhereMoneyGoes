@@ -29,15 +29,4 @@ namespace QuickExpense.Domain.Models
                 );
         }
     }
-
-    public class Row
-    {
-        public IEnumerable<string> Cells { get;  }
-        
-        public Row(string row)
-        {
-            Cells = row.Split(",");
-        }
-    }
-
 }

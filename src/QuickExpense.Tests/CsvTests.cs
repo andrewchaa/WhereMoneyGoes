@@ -41,6 +41,16 @@ namespace QuickExpense.Tests
             Assert.Equal(6, csv.Headers.Count());
             Assert.Equal(3, csv.Rows.Count());
         }
+
+        [Fact]
+        public async Task Should_strip_off_double_quotes()
+        {
+            // act
+            var csv = Csv.From(_csvString);
+
+            // assert
+            Assert.Equal("26 Mar 2018", csv.Rows.First().Cells[0]);
+        }
         
     }
 }
