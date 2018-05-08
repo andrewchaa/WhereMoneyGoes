@@ -1,5 +1,7 @@
 using System;
+using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.Data.Edm.Library.Expressions;
 using QuickExpense.Controllers;
 using QuickExpense.Domain.Models;
 using Xunit;
@@ -23,16 +25,22 @@ namespace QuickExpense.Tests
         public async Task Should_parse_new_line()
         {
             // act
-            var csvs = Csv.From(_csvString);
+            var csv = Csv.From(_csvString);
 
             // assert
-            Assert.Equal(3, csvs.Count);
+            Assert.Equal(3, csv.Count);
         }
 
         [Fact]
         public async Task Should_populate_csv()
         {
-            
+            // act
+            var csv = Csv.From(_csvString);
+
+            // assert
+            Assert.Equal(6, csv.Headers.Count());
+            Assert.Equal(3, csv.Rows.Count());
         }
+        
     }
 }

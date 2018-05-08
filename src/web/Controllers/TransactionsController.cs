@@ -22,20 +22,6 @@ namespace QuickExpense.Controllers
             _logger = logger;
         }
         
-        // GET api/values
-        [HttpGet]
-        public IEnumerable<string> Get()
-        {
-            return new string[] { "value1", "value2" };
-        }
-
-        // GET api/values/5
-        [HttpGet("{id}")]
-        public string Get(int id)
-        {
-            return "value";
-        }
-
         // POST api/values
         [HttpPost]
         public async Task<IActionResult> Post(IFormFile file)
@@ -43,9 +29,9 @@ namespace QuickExpense.Controllers
             using (var stream = new MemoryStream())
             {
                 await file.CopyToAsync(stream);
-                var csvs = Csv.From(Encoding.UTF8.GetString(stream.ToArray()));
-                _logger.LogInformation($"Count: {csvs.Count}");
-                return Ok(csvs);
+                var csv = Csv.From(Encoding.UTF8.GetString(stream.ToArray()));
+                _logger.LogInformation($"Count: {csv.Count}");
+                return Ok(csv);
             }
         }
 

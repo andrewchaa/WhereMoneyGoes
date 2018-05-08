@@ -1,26 +1,43 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using Microsoft.EntityFrameworkCore.ValueGeneration.Internal;
 
 namespace QuickExpense.Domain.Models
 {
     public class Csv
     {
-        public string Line { get; }
+        public IEnumerable<Row> Rows { get; }
+        public IEnumerable<string> Headers { get; set; }
+        public int Count => Rows.Count();
 
-        private Csv(string line)
+        private Csv(IList<string> headers, IList<string> rows)
         {
-            Line = line;
+            Headers = headers;
+            Rows = rows.Select(r => new Row(r));
         }
         
-        public static IList<Csv> From(string csvString)
+        public static Csv From(string csvString)
         {
             var lines = csvString
                 .Split("\n")
-                .Skip(1)
                 .Where(l => l.Length > 0)
                 .ToList();
 
-            return lines.Select(l => new Csv(l)).ToList();
+            return new Csv(
+                lines.First().Split(","),
+                lines.Skip(1).ToList()
+                );
         }
     }
+
+    public class Row
+    {
+        public IEnumerable<string> Cells { get;  }
+        
+        public Row(string row)
+        {
+            Cells = row.Split(",");
+        }
+    }
+
 }
