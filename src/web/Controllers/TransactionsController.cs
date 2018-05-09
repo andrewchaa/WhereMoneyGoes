@@ -25,62 +25,25 @@ namespace QuickExpense.Controllers
             _logger = logger;
         }
         
-        // POST api/values
         [HttpPost]
-        public async Task<IActionResult> Post(IFormFile file)
+        [Route("{bank}")]
+        public async Task<IActionResult> Post([FromRoute] Bank bank, 
+            IFormFile file)
         {
             using (var stream = new MemoryStream())
             {
                 await file.CopyToAsync(stream);
-                var csv = Csv.From(Encoding.UTF8.GetString(stream.ToArray()));
+                var csv = Csv.From(bank, Encoding.UTF8.GetString(stream.ToArray()));
 
                 var transactions = new List<MoneyTransaction>();
                 foreach (var row in csv.Rows)
                 {
                     _logger.LogInformation($"row: {row}");
-                    transactions.Add(MoneyTransaction.Parse(
-                        row.Cells[0],
-                        row.Cells[2],
-                        row.Cells[3],
-                        row.Cells[4]
-                        ));
+                    transactions.Add(MoneyTransaction.Parse(bank, row.Cells));
                 }
 
-                return Ok(new
-                {
-                    Uncategorised = transactions
-                        .Where(t => t.Category == "Uncategorised")
-                        .Select(t => t.Description)
-                        .Distinct()
-                        .OrderBy(t => t),
-                    Summary = transactions
-                        .OrderBy(t => t.Category)
-                        .GroupBy(t => t.Category)
-                        .Select(i =>  
-                            new
-                            {
-                                Category = i.Key, 
-                                Total = i.Sum(s => s.PaidOut)
-                            }
-                        ),
-                    Total = transactions.Sum(t => t.PaidOut),
-                    Count = transactions.Count(),
-                    transactions
-                });
+                return Ok(new Summary(transactions));
             }
         }
-
-        // PUT api/values/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody]string value)
-        {
-        }
-
-        // DELETE api/values/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
-        }
     }
-
 }

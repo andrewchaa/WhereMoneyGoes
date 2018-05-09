@@ -16,17 +16,21 @@ namespace QuickExpense.Domain.Models
             Rows = rows.Select(r => new Row(r));
         }
         
-        public static Csv From(string csvString)
+        public static Csv From(Bank bank, string csvString)
         {
             var lines = csvString
                 .Split("\n")
                 .Where(l => l.Length > 0)
                 .ToList();
 
-            return new Csv(
-                lines.First().Split(","),
-                lines.Skip(1).ToList()
-                );
+            if (bank == Bank.Hsbc)
+            {
+                return new Csv(lines.First().Split(","), lines.Skip(1).ToList());
+            }
+            
+            return new Csv(new List<string>(), 
+                lines.ToList());
+            
         }
     }
 }

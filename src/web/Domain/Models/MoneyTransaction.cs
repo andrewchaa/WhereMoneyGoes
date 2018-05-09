@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Globalization;
 using Library;
 using Microsoft.Extensions.Logging;
+using QuickExpense.Controllers;
 
 namespace QuickExpense.Domain.Models
 {
@@ -26,15 +28,52 @@ namespace QuickExpense.Domain.Models
             PaidIn = paidIn;
         }
 
-        public static MoneyTransaction Parse(string date, string description, string paidOut, string paidIn)
+        public static MoneyTransaction Parse(Bank bank, IList<string> columns)
         {
+            var description = GetDescription(bank, columns);
             return new MoneyTransaction(
-                DateTime.ParseExact(date, "dd MMM yyyy", CultureInfo.InvariantCulture),
-                description.Trim(),
+                GetDate(bank, columns),
+                description,
                 description.Map(d => FindCategory(d)),
-                !string.IsNullOrEmpty(paidOut.Trim()) ? decimal.Parse(paidOut.Trim()) : 0,
-                !string.IsNullOrEmpty(paidIn.Trim()) ? decimal.Parse(paidIn.Trim()) : 0
+                GetPaidOut(bank, columns),
+                GetPaidIn(bank, columns)
                 );
+        }
+
+        private static decimal GetPaidIn(Bank bank, IList<string> columns)
+        {
+            if (bank == Bank.Hsbc)
+                return !string.IsNullOrEmpty(columns[4].Trim()) ? decimal.Parse(columns[4].Trim()) : 0;
+
+            return 0m;
+        }
+
+        private static decimal GetPaidOut(Bank bank, IList<string> columns)
+        {
+            if (bank == Bank.Hsbc)
+                return !string.IsNullOrEmpty(columns[3].Trim()) ? decimal.Parse(columns[3].Trim()) : 0;
+            
+            return !string.IsNullOrEmpty(columns[6].Trim()) ? decimal.Parse(columns[6].Trim()) : 0;
+        }
+
+        private static string GetDescription(Bank bank, IList<string> columns)
+        {
+            if (bank == Bank.Hsbc)
+                return columns[2].Trim();
+
+            return columns[1].Trim();
+        }
+
+        private static DateTime GetDate(Bank bank, IList<string> columns)
+        {
+            var col = columns[0];
+
+            if (bank == Bank.Hsbc)
+            {
+                return DateTime.ParseExact(col, "dd MMM yyyy", CultureInfo.InvariantCulture);
+            }
+            
+            return DateTime.ParseExact(col, "dd MMM yy", CultureInfo.InvariantCulture);
         }
 
         private static string FindCategory(string description)

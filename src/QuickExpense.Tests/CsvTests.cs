@@ -22,20 +22,20 @@ namespace QuickExpense.Tests
         }
         
         [Fact]
-        public async Task Should_parse_new_line()
+        public void Should_parse_new_line()
         {
             // act
-            var csv = Csv.From(_csvString);
+            var csv = Csv.From(Bank.Hsbc, _csvString);
 
             // assert
             Assert.Equal(3, csv.Count);
         }
 
         [Fact]
-        public async Task Should_populate_csv()
+        public void Should_populate_csv()
         {
             // act
-            var csv = Csv.From(_csvString);
+            var csv = Csv.From(Bank.Hsbc, _csvString);
 
             // assert
             Assert.Equal(6, csv.Headers.Count());
@@ -43,10 +43,10 @@ namespace QuickExpense.Tests
         }
 
         [Fact]
-        public async Task Should_strip_off_double_quotes()
+        public void Should_strip_off_double_quotes()
         {
             // act
-            var csv = Csv.From(_csvString);
+            var csv = Csv.From(Bank.Hsbc, _csvString);
 
             // assert
             Assert.Equal("26 Mar 2018", csv.Rows.First().Cells[0]);
@@ -56,7 +56,7 @@ namespace QuickExpense.Tests
         public void Should_handle_comma_in_the_middle()
         {
             // act
-            var csv = Csv.From("Date,Type,Description,Paid out,Paid in,Balance\n" + 
+            var csv = Csv.From(Bank.Hsbc, "Date,Type,Description,Paid out,Paid in,Balance\n" + 
                                "\"23 Apr 2018\",))),\"MOTO READING EAST, READING \",\"3.88\", , \n");
             
             // assert
@@ -67,7 +67,7 @@ namespace QuickExpense.Tests
         public void Should_handle_empty_value()
         {
             // act
-            var csv = Csv.From("Date,Type,Description,Paid out,Paid in,Balance\n" + 
+            var csv = Csv.From(Bank.Hsbc, "Date,Type,Description,Paid out,Paid in,Balance\n" + 
                                "\"23 Apr 2018\",))),\"MOTO READING EAST, READING \",\"3.88\", , \n");
             
             // assert
