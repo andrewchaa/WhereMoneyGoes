@@ -23,7 +23,6 @@ namespace QuickExpense
                 .ConfigureLogging((h, l) =>
                 {
                     l.AddConsole();
-                    l.AddDebug();
                 })
                 .Build();
     }

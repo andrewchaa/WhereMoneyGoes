@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
+using Library;
 
 namespace QuickExpense.Domain.Models
 {
@@ -9,9 +11,13 @@ namespace QuickExpense.Domain.Models
         
         public Row(string row)
         {
-            Cells = row
-                .Split(",")
-                .Select(c => c.Replace("\"", string.Empty))
+            var matches = new Regex("\".+?\"|[^\"]+?(?=,)|(?<=,)[^\"]+").Matches(row);
+            Cells = matches
+                .Select(m => m.Value
+                    .Map(v => v.Replace("\"", string.Empty))
+                    .Map(v => v.Trim())
+                    .Map(v => v != "," ? v : string.Empty)
+                )
                 .ToList();
         }
 

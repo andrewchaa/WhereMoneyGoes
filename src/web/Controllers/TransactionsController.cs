@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Transactions;
+using Library;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.CodeAnalysis;
@@ -44,15 +45,28 @@ namespace QuickExpense.Controllers
                         row.Cells[4]
                         ));
                 }
-//                var transactions = csv.Rows.Select(r => new MoneyTransaction(
-//                    DateTime.ParseExact(r.Cells[0], "dd MMM yyyy", CultureInfo.CurrentCulture),
-//                    r.Cells[2],
-//                    Decimal.Parse(r.Cells[3]),
-//                    Decimal.Parse(r.Cells[4])
-//                ));
-                
-                
-                return Ok(transactions);
+
+                return Ok(new
+                {
+                    Uncategorised = transactions
+                        .Where(t => t.Category == "Uncategorised")
+                        .Select(t => t.Description)
+                        .Distinct()
+                        .OrderBy(t => t),
+                    Summary = transactions
+                        .OrderBy(t => t.Category)
+                        .GroupBy(t => t.Category)
+                        .Select(i =>  
+                            new
+                            {
+                                Category = i.Key, 
+                                Total = i.Sum(s => s.PaidOut)
+                            }
+                        ),
+                    Total = transactions.Sum(t => t.PaidOut),
+                    Count = transactions.Count(),
+                    transactions
+                });
             }
         }
 
@@ -68,4 +82,5 @@ namespace QuickExpense.Controllers
         {
         }
     }
+
 }

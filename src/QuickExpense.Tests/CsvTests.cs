@@ -51,6 +51,28 @@ namespace QuickExpense.Tests
             // assert
             Assert.Equal("26 Mar 2018", csv.Rows.First().Cells[0]);
         }
+
+        [Fact]
+        public void Should_handle_comma_in_the_middle()
+        {
+            // act
+            var csv = Csv.From("Date,Type,Description,Paid out,Paid in,Balance\n" + 
+                               "\"23 Apr 2018\",))),\"MOTO READING EAST, READING \",\"3.88\", , \n");
+            
+            // assert
+            Assert.Equal("MOTO READING EAST, READING", csv.Rows.First().Cells[2]);
+        }
+
+        [Fact]
+        public void Should_handle_empty_value()
+        {
+            // act
+            var csv = Csv.From("Date,Type,Description,Paid out,Paid in,Balance\n" + 
+                               "\"23 Apr 2018\",))),\"MOTO READING EAST, READING \",\"3.88\", , \n");
+            
+            // assert
+            Assert.Equal(string.Empty, csv.Rows.First().Cells[4]);
+        }
         
     }
 }
