@@ -13,7 +13,8 @@ namespace QuickExpense.Domain.Models
         private Csv(IList<string> headers, IList<string> rows)
         {
             Headers = headers;
-            Rows = rows.Select(r => new Row(r));
+            Rows = rows
+                .Select(r => new Row(r));
         }
         
         public static Csv From(Bank bank, string csvString)
@@ -28,7 +29,8 @@ namespace QuickExpense.Domain.Models
                 return new Csv(lines.First().Split(","), lines.Skip(1).ToList());
             }
             
-            return new Csv(new List<string>(), 
+            return new Csv(
+                new List<string>(), 
                 lines.ToList());
             
         }

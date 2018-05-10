@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
-using Library;
+using FunctionalWay;
 
 namespace QuickExpense.Domain.Models
 {
@@ -15,8 +15,8 @@ namespace QuickExpense.Domain.Models
             Cells = matches
                 .Select(m => m.Value
                     .Map(v => v.Replace("\"", string.Empty))
+                    .Map(v => v.Replace(",", string.Empty))                    
                     .Map(v => v.Trim())
-                    .Map(v => v != "," ? v : string.Empty)
                 )
                 .ToList();
         }
