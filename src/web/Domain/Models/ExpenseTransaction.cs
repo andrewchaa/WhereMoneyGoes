@@ -9,13 +9,13 @@ namespace QuickExpense.Domain.Models
     {
         public DateTime Date { get; }
         public string Description { get; }
-        public string Category { get; }
+        public Category Category { get; }
         public decimal PaidOut { get; }
         public decimal PaidIn { get; }
 
         public ExpenseTransaction(DateTime date, 
             string description,
-            string category,
+            Category category,
             decimal paidOut, 
             decimal paidIn)
         {
@@ -32,7 +32,7 @@ namespace QuickExpense.Domain.Models
             return new ExpenseTransaction(
                 GetDate(bank, columns),
                 description,
-                description.Map(d => FindCategory(d)),
+                FindCategory(description),
                 GetPaidOut(bank, columns),
                 GetPaidIn(bank, columns)
                 );
@@ -74,11 +74,11 @@ namespace QuickExpense.Domain.Models
             return DateTime.ParseExact(col, "dd MMM yy", CultureInfo.InvariantCulture);
         }
 
-        private static string FindCategory(string description)
+        private static Category FindCategory(string description)
         {
             return description.Map(d => Categories.Items.ContainsKey(d)
                 ? Categories.Items[d]
-                : "Uncategories");
+                : Models.Category.Uncategorized);
         }
     }
 }

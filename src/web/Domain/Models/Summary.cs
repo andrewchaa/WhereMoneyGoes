@@ -14,7 +14,7 @@ namespace QuickExpense.Domain.Models
         {
             
             Uncategorised = transactions
-                .Where(t => t.Category == "Uncategorised")
+                .Where(t => t.Category == Category.Uncategorized)
                 .Select(t => t.Description)
                 .Distinct()
                 .OrderBy(t => t);
@@ -22,7 +22,7 @@ namespace QuickExpense.Domain.Models
             Expenses = transactions
                 .OrderBy(t => t.Category)
                 .GroupBy(t => t.Category)
-                .Select(i => new Expense(i.Key, i.Sum(s => s.PaidOut)));
+                .Select(i => new Expense(i.Key.ToString(), i.Sum(s => s.PaidOut)));
             
             Total = transactions.Sum(t => t.PaidOut);
             Count = transactions.Count();

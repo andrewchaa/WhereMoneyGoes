@@ -47,11 +47,11 @@ namespace QuickExpense.Domain.Services
             }
         }
         
-        private static string FindCategory(string description)
+        private static Category FindCategory(string description)
         {
             return description.Map(d => Categories.Items.ContainsKey(d)
                 ? Categories.Items[d]
-                : "Uncategories");
+                : Category.Uncategorized);
         }
 
     }
