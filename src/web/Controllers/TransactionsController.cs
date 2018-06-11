@@ -1,7 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using FunctionalWay;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -15,6 +18,7 @@ namespace QuickExpense.Controllers
     {
         private readonly ILogger<TransactionsController> _logger;
         private readonly IStatementParser _statementParser;
+        private readonly IStatementCleaner _cleaner;
 
         public TransactionsController(
             ILogger<TransactionsController> logger,
@@ -29,21 +33,30 @@ namespace QuickExpense.Controllers
             [FromRoute] Bank bank, 
             IFormFile file)
         {
+            var csvString = string.Empty;
             using (var stream = new MemoryStream())
             {
                 await file.CopyToAsync(stream);
-                var csv = Csv.From(bank, Encoding.UTF8.GetString(stream.ToArray()));
-
-                
-                var transactions = new List<MoneyTransaction>();
-                foreach (var row in csv.Rows)
-                {
-                    _logger.LogInformation($"row: {row}");
-                    transactions.Add(_statementParser.Parse(row.Cells));
-                }
-
-                return Ok(new Summary(transactions));
+                csvString = Encoding.UTF8.GetString(stream.ToArray());
             }
+
+            return csvString
+                .Split("\n")
+                .Where(line => line.Length > 0)
+                .Select(r => Cleanse(r))
+                .Skip(1)
+                .Select(line => new Row(line))
+                .Select(row => _statementParser.Parse(row.Cells))
+                .Map(trans => new Summary(trans))
+                .Map(summary => Ok(summary));
+        }
+
+        private static string Cleanse(string row)
+        {
+            return Regex.Replace(row, 
+                "(\\)\\)\\)|VIS|CR|BP|DD|SO|DR),", 
+                string.Empty)
+                .Map(r => Regex.Replace(r, ", ", ",\"0\""));
         }
     }
 }

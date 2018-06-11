@@ -22,6 +22,7 @@ namespace QuickExpense.Domain.Models
             var lines = csvString
                 .Split("\n")
                 .Where(l => l.Length > 0)
+                .Select(r => r.Replace("))),", string.Empty))
                 .ToList();
 
             if (bank == Bank.Hsbc)

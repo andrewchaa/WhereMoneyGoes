@@ -14,7 +14,7 @@ namespace QuickExpense.Tests
         public void Should_handle_empty_value_for_money()
         {
             // act
-            var transaction = MoneyTransaction.Parse(Bank.Hsbc, new []{
+            var transaction = ExpenseTransaction.Parse(Bank.Hsbc, new []{
                 "26 Mar 2018",
                 "xxx",
                 "PIZZA EXPRESS LONDON  3223",
@@ -30,7 +30,7 @@ namespace QuickExpense.Tests
         public void Should_handle_empty_value_for_paidout()
         {
             // act
-            var transaction = MoneyTransaction.Parse(Bank.Hsbc, new []
+            var transaction = ExpenseTransaction.Parse(Bank.Hsbc, new []
             {
                 "29 Mar 2018",
                 "xxx",
@@ -48,7 +48,7 @@ namespace QuickExpense.Tests
         public void Should_handle_csv_for_barclaycard()
         {
             // act
-            var transaction = MoneyTransaction.Parse(Bank.Barclaycard, new []
+            var transaction = ExpenseTransaction.Parse(Bank.Barclaycard, new []
             {
                 "21 Apr 18", 
                 " Waitrose 834, Clifton8.10 POUND STERLING GREAT BRITAIN ", 

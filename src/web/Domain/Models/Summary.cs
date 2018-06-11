@@ -10,7 +10,7 @@ namespace QuickExpense.Domain.Models
         public int Count { get; }
         public decimal Total { get; }
         
-        public Summary(IList<MoneyTransaction> transactions)
+        public Summary(IEnumerable<ExpenseTransaction> transactions)
         {
             
             Uncategorised = transactions

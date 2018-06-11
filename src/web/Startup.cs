@@ -30,10 +30,11 @@ namespace QuickExpense
                 var httpContext = s.GetService<IHttpContextAccessor>().HttpContext;
                 if (httpContext.Request.Path.Value.Contains("barclaycard"))
                 {
-                    return new BarclaycardParser(s.GetService<ILogger<BarclaycardParser>>());
+                    return new BarclaycardParser();
                 }
 
-                return new HsbcParser();
+                return new HsbcParser(s.GetService<ILogger<HsbcParser>>());
+                
             });
             services.AddMvc();
         }

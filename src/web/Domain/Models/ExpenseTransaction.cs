@@ -5,7 +5,7 @@ using FunctionalWay;
 
 namespace QuickExpense.Domain.Models
 {
-    public class MoneyTransaction
+    public class ExpenseTransaction
     {
         public DateTime Date { get; }
         public string Description { get; }
@@ -13,7 +13,7 @@ namespace QuickExpense.Domain.Models
         public decimal PaidOut { get; }
         public decimal PaidIn { get; }
 
-        public MoneyTransaction(DateTime date, 
+        public ExpenseTransaction(DateTime date, 
             string description,
             string category,
             decimal paidOut, 
@@ -26,10 +26,10 @@ namespace QuickExpense.Domain.Models
             PaidIn = paidIn;
         }
 
-        public static MoneyTransaction Parse(Bank bank, IList<string> columns)
+        public static ExpenseTransaction Parse(Bank bank, IList<string> columns)
         {
             var description = GetDescription(bank, columns);
-            return new MoneyTransaction(
+            return new ExpenseTransaction(
                 GetDate(bank, columns),
                 description,
                 description.Map(d => FindCategory(d)),

@@ -5,6 +5,6 @@ namespace QuickExpense.Domain.Services
 {
     public interface IStatementParser
     {
-        MoneyTransaction Parse(IList<string> columns);
+        ExpenseTransaction Parse(IList<string> columns);
     }
 }

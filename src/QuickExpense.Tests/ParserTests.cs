@@ -24,7 +24,7 @@ namespace QuickExpense.Tests
             };
 
             // act
-            var parser = new BarclaycardParser(new NullLogger<BarclaycardParser>());
+            var parser = new HsbcParser(new NullLogger<HsbcParser>());
             var transaction = parser.Parse(columns);
             
             // assert
