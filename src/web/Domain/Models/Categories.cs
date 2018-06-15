@@ -61,6 +61,7 @@ namespace QuickExpense.Domain.Models
             { "INT'L 0003147479 Amazon web service aws.amazon.co USD 15.59 @ 1.3532  Visa Rate", Category.Software },
             { "INT'L 0065499908 ITUNES.COM/BILL ITUNES.COM", Category.Software },
             { "INT'L 0068599149 Amazon Digital Dwn 866-321-8851", Category.Software },
+            { "INT'L 0027632705 Amazon web service aws.amazon.co USD 0.61 @ 1.3863  Visa Rate", Category.Software },
             { "Spotify P0564C5D7E London", Category.Software },
 
             { "POUNDLAND LTD LONDON  E17", Category.Stationery },
