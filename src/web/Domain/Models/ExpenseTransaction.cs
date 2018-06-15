@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Globalization;
 using FunctionalWay;
+using FunctionalWay.Extensions;
 
 namespace QuickExpense.Domain.Models
 {

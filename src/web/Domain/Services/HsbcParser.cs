@@ -2,8 +2,10 @@
 using System.Collections.Generic;
 using System.Globalization;
 using FunctionalWay;
+using FunctionalWay.Extensions;
 using Microsoft.Extensions.Logging;
 using QuickExpense.Domain.Models;
+using SanPellgrino;
 
 namespace QuickExpense.Domain.Services
 {
@@ -20,24 +22,27 @@ namespace QuickExpense.Domain.Services
         {
             try
             {
-                return new ExpenseTransaction(
-                    columns[0]
-                        .Tee(c => _logger.LogInformation($"date column: {c}"))
-                        .Map(c => DateTime.ParseExact(c, "dd MMM yyyy", CultureInfo.InvariantCulture)),
-                    columns[1].Trim(),
-                    columns[1].Trim().Map(FindCategory),
-                    columns[2]
-                        .Map(c => c.Trim())
-                        .Map(c =>
-                        {
-                            try { return !string.IsNullOrEmpty(c) ? decimal.Parse(c) : 0; }
-                            catch (Exception e)
+                return columns
+                    .Tee(cs => _logger.LogInformation($"columns: {cs.ToCsvString()}") )
+                    .Map(cs => new ExpenseTransaction(
+                        cs[0]
+                            .Tee(c => _logger.LogInformation($"date column: {c}"))
+                            .Map(c => DateTime.ParseExact(c, "dd MMM yyyy", CultureInfo.InvariantCulture)),
+                        cs[1].Trim(),
+                        cs[1].Trim().Map(FindCategory),
+                        cs[2]
+                            .Map(c => c.Trim())
+                            .Map(c =>
                             {
-                                _logger.LogError(e, $"Input: {c}");
-                                throw;
-                            }
-                        }),
-                    0
+                                try { return !string.IsNullOrEmpty(c) ? decimal.Parse(c) : 0; }
+                                catch (Exception e)
+                                {
+                                    _logger.LogError(e, $"Input: {c}");
+                                    _logger.LogInformation(columns.ToCsvString());
+                                    throw;
+                                }
+                            }),
+                        0)
                 );
             }
             catch (Exception e)

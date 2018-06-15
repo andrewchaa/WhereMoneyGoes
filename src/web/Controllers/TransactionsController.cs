@@ -5,6 +5,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using FunctionalWay;
+using FunctionalWay.Extensions;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -53,10 +54,10 @@ namespace QuickExpense.Controllers
 
         private static string Cleanse(string row)
         {
-            return Regex.Replace(row, 
-                "(\\)\\)\\)|VIS|CR|BP|DD|SO|DR),", 
-                string.Empty)
-                .Map(r => Regex.Replace(r, ", ", ",\"0\""));
+            return row
+                    .Map(r => Regex.Replace(r, "(\\)\\)\\)|VIS|CR|BP|DD|SO|DR),", string.Empty))
+                    .Map(r => Regex.Replace(r, "(?<=[a-zA-Z]),", string.Empty))
+                    .Map(r => Regex.Replace(r, ", ", ",\"0\""));
         }
     }
 }

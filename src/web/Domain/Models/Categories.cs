@@ -14,6 +14,7 @@ namespace QuickExpense.Domain.Models
             { "BHCC-PAYPHONEPARKI BRIGHTON", Category.CarParking },
             { "BRISTOL CITY COUNC BRISTOL", Category.CarParking },
             { "DART-CHARGE GOV.UK/DART-C", Category.CarParking },
+            { "BRISTOL PACKET LTD BRISTOL", Category.CarParking },
             
             { "HILLSONG CHURCH 0207 3849200", Category.Charity },
 
@@ -119,7 +120,7 @@ namespace QuickExpense.Domain.Models
             { "MARKS&SPENCER PLC STRATFORD", Category.Subsistence },
             { "MCDONALDS CANNING TOWN", Category.Subsistence },
             { "MCDONALDS LONDON  E7", Category.Subsistence },
-            { "MOTO READING EAST, READING", Category.Subsistence },
+            { "MOTO READING EAST READING", Category.Subsistence },
             { "MOTO READING WT CO READING", Category.Subsistence },
             { "PATISSERIE VALERIE EASTBOURNE", Category.Subsistence },
             { "PAUL UK ST PAULS LONDON", Category.Subsistence },

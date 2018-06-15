@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Text.RegularExpressions;
 using FunctionalWay;
+using FunctionalWay.Extensions;
 
 namespace QuickExpense.Domain.Models
 {
