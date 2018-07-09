@@ -6,6 +6,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QuickExpense", "src\web\Qui
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QuickExpense.Tests", "src\QuickExpense.Tests\QuickExpense.Tests.csproj", "{84C56437-AFF4-496C-9281-155BCCBA31CF}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Starex.AddToCategory", "src\Starex.AddToCategory\Starex.AddToCategory.csproj", "{13FA5CDB-D7CE-44E8-B10D-42A7C89F2B34}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -24,5 +26,9 @@ Global
 		{84C56437-AFF4-496C-9281-155BCCBA31CF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{84C56437-AFF4-496C-9281-155BCCBA31CF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{84C56437-AFF4-496C-9281-155BCCBA31CF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{13FA5CDB-D7CE-44E8-B10D-42A7C89F2B34}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{13FA5CDB-D7CE-44E8-B10D-42A7C89F2B34}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{13FA5CDB-D7CE-44E8-B10D-42A7C89F2B34}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{13FA5CDB-D7CE-44E8-B10D-42A7C89F2B34}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
