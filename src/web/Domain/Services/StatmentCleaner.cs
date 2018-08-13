@@ -1,4 +1,4 @@
-﻿namespace QuickExpense.Domain.Services
+﻿namespace Calme.Domain.Services
 {
     public class StatmentCleaner : IStatementCleaner
     {

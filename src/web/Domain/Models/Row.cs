@@ -1,10 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
-using FunctionalWay;
 using FunctionalWay.Extensions;
 
-namespace QuickExpense.Domain.Models
+namespace Calme.Domain.Models
 {
     public class Row
     {

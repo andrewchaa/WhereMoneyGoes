@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
-namespace QuickExpense.Domain.Models
+namespace Calme.Domain.Models
 {
     public class Summary
     {

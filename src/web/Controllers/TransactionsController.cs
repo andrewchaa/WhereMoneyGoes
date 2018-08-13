@@ -1,18 +1,16 @@
-﻿using System.Collections.Generic;
-using System.IO;
+﻿using System.IO;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
-using FunctionalWay;
+using Calme.Domain.Models;
+using Calme.Domain.Services;
 using FunctionalWay.Extensions;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using QuickExpense.Domain.Models;
-using QuickExpense.Domain.Services;
 
-namespace QuickExpense.Controllers
+namespace Calme.Controllers
 {
     [Route("api/[controller]")]
     public class TransactionsController : Controller

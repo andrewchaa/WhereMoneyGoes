@@ -1,8 +1,7 @@
 using System;
 using System.Linq;
 using System.Threading.Tasks;
-using QuickExpense.Controllers;
-using QuickExpense.Domain.Models;
+using Calme.Domain.Models;
 using Xunit;
 
 namespace QuickExpense.Tests

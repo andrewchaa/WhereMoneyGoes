@@ -1,4 +1,4 @@
-﻿namespace QuickExpense.Domain.Models
+﻿namespace Calme.Domain.Models
 {
     public enum Bank
     {

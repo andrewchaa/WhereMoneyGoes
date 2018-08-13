@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using QuickExpense.Domain.Models;
+using Calme.Domain.Models;
 
-namespace QuickExpense.Domain.Services
+namespace Calme.Domain.Services
 {
     public class BarclaycardParser : IStatementParser
     {

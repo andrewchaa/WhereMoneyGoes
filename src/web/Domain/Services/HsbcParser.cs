@@ -1,13 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
-using FunctionalWay;
+using Calme.Domain.Models;
 using FunctionalWay.Extensions;
 using Microsoft.Extensions.Logging;
-using QuickExpense.Domain.Models;
 using SanPellgrino;
 
-namespace QuickExpense.Domain.Services
+namespace Calme.Domain.Services
 {
     public class HsbcParser : IStatementParser
     {

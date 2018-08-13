@@ -1,8 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using Microsoft.EntityFrameworkCore.ValueGeneration.Internal;
 
-namespace QuickExpense.Domain.Models
+namespace Calme.Domain.Models
 {
     public class Csv
     {
