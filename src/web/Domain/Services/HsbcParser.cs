@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.Text.RegularExpressions;
 using Calme.Domain.Models;
 using FunctionalWay.Extensions;
 using Microsoft.Extensions.Logging;
@@ -53,9 +54,19 @@ namespace Calme.Domain.Services
         
         private static Category FindCategory(string description)
         {
-            return description.Pipe(d => Categories.Items.ContainsKey(d)
-                ? Categories.Items[d]
-                : Category.Uncategorized);
+            foreach (var match in CategoryMatches.Items)
+            {
+                if (Regex.IsMatch(description, match.Key))
+                {
+                    return match.Value;
+                }
+            }
+
+            return Category.Uncategorized;
+
+//            return description.Pipe(d => Categories.Items.ContainsKey(d)
+//                ? Categories.Items[d]
+//                : Category.Uncategorized);
         }
 
     }
