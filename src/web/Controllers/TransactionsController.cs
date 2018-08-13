@@ -46,16 +46,16 @@ namespace Calme.Controllers
                 .Skip(1)
                 .Select(line => new Row(line))
                 .Select(row => _statementParser.Parse(row.Cells))
-                .Map(trans => new Summary(trans))
-                .Map(summary => Ok(summary));
+                .Pipe(trans => new Summary(trans))
+                .Pipe(summary => Ok(summary));
         }
 
         private static string Cleanse(string row)
         {
             return row
-                    .Map(r => Regex.Replace(r, "(\\)\\)\\)|VIS|CR|BP|DD|SO|DR),", string.Empty))
-                    .Map(r => Regex.Replace(r, "(?<=[a-zA-Z]),", string.Empty))
-                    .Map(r => Regex.Replace(r, ", ", ",\"0\""));
+                    .Pipe(r => Regex.Replace(r, "(\\)\\)\\)|VIS|CR|BP|DD|SO|DR),", string.Empty))
+                    .Pipe(r => Regex.Replace(r, "(?<=[a-zA-Z]),", string.Empty))
+                    .Pipe(r => Regex.Replace(r, ", ", ",\"0\""));
         }
     }
 }

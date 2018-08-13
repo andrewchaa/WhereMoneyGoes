@@ -76,7 +76,7 @@ namespace Calme.Domain.Models
 
         private static Category FindCategory(string description)
         {
-            return description.Map(d => Categories.Items.ContainsKey(d)
+            return description.Pipe(d => Categories.Items.ContainsKey(d)
                 ? Categories.Items[d]
                 : Models.Category.Uncategorized);
         }

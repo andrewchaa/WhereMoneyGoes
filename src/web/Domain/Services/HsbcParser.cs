@@ -22,16 +22,16 @@ namespace Calme.Domain.Services
             try
             {
                 return columns
-                    .Tee(cs => _logger.LogInformation($"columns: {cs.ToCsvString()}") )
-                    .Map(cs => new ExpenseTransaction(
+                    .Pipe(cs => _logger.LogInformation($"columns: {cs.ToCsvString()}") )
+                    .Pipe(cs => new ExpenseTransaction(
                         cs[0]
                             .Tee(c => _logger.LogInformation($"date column: {c}"))
-                            .Map(c => DateTime.ParseExact(c, "dd MMM yyyy", CultureInfo.InvariantCulture)),
+                            .Pipe(c => DateTime.ParseExact(c, "dd MMM yyyy", CultureInfo.InvariantCulture)),
                         cs[1].Trim(),
-                        cs[1].Trim().Map(FindCategory),
+                        cs[1].Trim().Pipe(FindCategory),
                         cs[2]
-                            .Map(c => c.Trim())
-                            .Map(c =>
+                            .Pipe(c => c.Trim())
+                            .Pipe(c =>
                             {
                                 try { return !string.IsNullOrEmpty(c) ? decimal.Parse(c) : 0; }
                                 catch (Exception e)
@@ -53,7 +53,7 @@ namespace Calme.Domain.Services
         
         private static Category FindCategory(string description)
         {
-            return description.Map(d => Categories.Items.ContainsKey(d)
+            return description.Pipe(d => Categories.Items.ContainsKey(d)
                 ? Categories.Items[d]
                 : Category.Uncategorized);
         }

@@ -14,9 +14,9 @@ namespace Calme.Domain.Models
             var matches = new Regex("\".+?\"|[^\"]+?(?=,)|(?<=,)[^\"]+").Matches(row);
             Cells = matches
                 .Select(m => m.Value
-                    .Map(v => v.Replace("\"", string.Empty))
-                    .Map(v => v.Replace(",", string.Empty))                    
-                    .Map(v => v.Trim())
+                    .Pipe(v => v.Replace("\"", string.Empty))
+                    .Pipe(v => v.Replace(",", string.Empty))                    
+                    .Pipe(v => v.Trim())
                 )
                 .ToList();
         }
