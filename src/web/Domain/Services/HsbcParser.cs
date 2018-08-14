@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.Linq;
 using System.Text.RegularExpressions;
 using Calme.Domain.Models;
 using FunctionalWay.Extensions;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Microsoft.Extensions.Logging;
 using SanPellgrino;
 
@@ -25,9 +27,7 @@ namespace Calme.Domain.Services
                 return columns
                     .Pipe(cs => _logger.LogInformation($"columns: {cs.ToCsvString()}") )
                     .Pipe(cs => new ExpenseTransaction(
-                        cs[0]
-                            .Tee(c => _logger.LogInformation($"date column: {c}"))
-                            .Pipe(c => DateTime.ParseExact(c, "dd MMM yyyy", CultureInfo.InvariantCulture)),
+                        cs[0].Pipe(c => DateTime.ParseExact(c, "dd MMM yyyy", CultureInfo.InvariantCulture)),
                         cs[1].Trim(),
                         cs[1].Trim().Pipe(FindCategory),
                         cs[2]
@@ -51,23 +51,16 @@ namespace Calme.Domain.Services
                 throw;
             }
         }
+
+        private static Func<string, Category> FindCategory = description =>
+            CategoryMatches
+                .Items
+                .Keys
+                .FirstOrDefault(item => Regex.IsMatch(description, item, RegexOptions.IgnoreCase))
+                .Pipe(key => key == null
+                    ? Category.Uncategorized
+                    : CategoryMatches.Items[key]);
         
-        private static Category FindCategory(string description)
-        {
-            foreach (var match in CategoryMatches.Items)
-            {
-                if (Regex.IsMatch(description, match.Key))
-                {
-                    return match.Value;
-                }
-            }
-
-            return Category.Uncategorized;
-
-//            return description.Pipe(d => Categories.Items.ContainsKey(d)
-//                ? Categories.Items[d]
-//                : Category.Uncategorized);
-        }
 
     }
 }
