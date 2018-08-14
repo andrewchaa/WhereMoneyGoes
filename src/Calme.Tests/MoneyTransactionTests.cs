@@ -1,10 +1,8 @@
 using System;
-using System.Linq;
-using System.Threading.Tasks;
 using Calme.Domain.Models;
 using Xunit;
 
-namespace QuickExpense.Tests
+namespace Calme.Tests
 {
     public class MoneyTransactionTests
     {

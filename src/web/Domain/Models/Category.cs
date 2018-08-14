@@ -9,6 +9,7 @@
         Equipment,
         Dividend,
         Exclude,
+        Fixture,
         Mileage,
         PublicTransport,
         Sales,
