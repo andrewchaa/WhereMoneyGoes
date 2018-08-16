@@ -76,8 +76,8 @@ namespace Calme.Domain.Models
 
         private static Category FindCategory(string description)
         {
-            return description.Pipe(d => CategoryMatches.Items.ContainsKey(d)
-                ? CategoryMatches.Items[d]
+            return description.Pipe(d => CategoryMatches.HsbcItems.ContainsKey(d)
+                ? CategoryMatches.HsbcItems[d]
                 : Models.Category.Uncategorized);
         }
     }

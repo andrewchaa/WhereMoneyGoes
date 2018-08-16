@@ -18,21 +18,22 @@ namespace Calme.Controllers
         private readonly ILogger<TransactionsController> _logger;
         private readonly IStatementParser _statementParser;
         private readonly IStatementCleaner _cleaner;
+        private readonly IClean _transactionCleaner;
 
         public TransactionsController(
             ILogger<TransactionsController> logger,
-            IStatementParser statementParser)
+            IStatementParser statementParser, 
+            IClean transactionCleaner)
         {
             _logger = logger;
             _statementParser = statementParser;
+            _transactionCleaner = transactionCleaner;
         }
         
         [HttpPost, Route("{bank}")]
-        public async Task<IActionResult> Post(
-            [FromRoute] Bank bank, 
-            IFormFile file)
+        public async Task<IActionResult> Post([FromRoute] Bank bank, IFormFile file)
         {
-            var csvString = string.Empty;
+            string csvString;
             using (var stream = new MemoryStream())
             {
                 await file.CopyToAsync(stream);
@@ -42,20 +43,12 @@ namespace Calme.Controllers
             return csvString
                 .Split("\n")
                 .Where(line => line.Length > 0)
-                .Select(r => Cleanse(r))
+                .Select(r => _transactionCleaner.Clean(r))
                 .Skip(1)
                 .Select(line => new Row(line))
                 .Select(row => _statementParser.Parse(row.Cells))
                 .Pipe(trans => new Summary(trans))
                 .Pipe(summary => Ok(summary));
-        }
-
-        private static string Cleanse(string row)
-        {
-            return row
-                    .Pipe(r => Regex.Replace(r, "(\\)\\)\\)|VIS|CR|BP|DD|SO|DR),", string.Empty))
-                    .Pipe(r => Regex.Replace(r, "(?<=[a-zA-Z]),", string.Empty))
-                    .Pipe(r => Regex.Replace(r, ", ", ",\"0\""));
         }
     }
 }

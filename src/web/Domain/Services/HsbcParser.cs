@@ -54,12 +54,12 @@ namespace Calme.Domain.Services
 
         private static Func<string, Category> FindCategory = description =>
             CategoryMatches
-                .Items
+                .HsbcItems
                 .Keys
                 .FirstOrDefault(item => Regex.IsMatch(description, item, RegexOptions.IgnoreCase))
                 .Pipe(key => key == null
                     ? Category.Uncategorized
-                    : CategoryMatches.Items[key]);
+                    : CategoryMatches.HsbcItems[key]);
         
 
     }

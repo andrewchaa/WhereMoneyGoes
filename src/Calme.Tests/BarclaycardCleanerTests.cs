@@ -18,7 +18,7 @@ namespace Calme.Tests
             var result = cleaner.Clean(row);
             
             // assert
-            Assert.Equal("19 Jul 18,\" Dorothy Perkins Chingford25.00 POUND STERLING GREAT BRITAIN \",Visa,MS H LEE,Shopping,,25.00", 
+            Assert.Equal("19 Jul 18,\" Dorothy Perkins Chingford25.00 \",Visa,MS H LEE,Shopping,,25.00", 
                 result);
 
         }

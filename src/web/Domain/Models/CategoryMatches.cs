@@ -4,9 +4,8 @@ namespace Calme.Domain.Models
 {
     public class CategoryMatches
     {
-        public static IDictionary<string, Category> Items = new Dictionary<string, Category>
+        public static IDictionary<string, Category> HsbcItems = new Dictionary<string, Category>
         {
-
             {"800 DEGREES LIMITE BRIGHTON", Category.Subsistence},
             {"ABOKADO LUDGATE LUDGATE", Category.Subsistence},
             {"ACCOUNTSNET", Category.Exclude},
@@ -168,6 +167,26 @@ namespace Calme.Domain.Models
         };
 
 
-
+        public static IDictionary<string, Category> BarclaycardItems = new Dictionary<string, Category>
+        {
+            {"Costa [A-Z|a-z|\\s|@]+", Category.Subsistence},
+            {"Dominos Pizza UK & Irelan Milton Keynes", Category.Subsistence},
+            {"Eat London ECM", Category.Subsistence},
+            {"Greggs Chingford", Category.Subsistence},
+            {"Hotel Chocolat Eastbourne", Category.Subsistence},
+            {"IZ *Urban Ground Eastbourne", Category.Subsistence},
+            {"Painting Pottery Cafe Brighton BN", Category.Subsistence},
+            {"Percy Ingle", Category.Subsistence},
+            {"Pret A Manger Broadgate Lin", Category.Subsistence},
+            {"Starbucks Eastbourne Eastbourne", Category.Subsistence},
+            {"[\\s|A-Z|a-z|/]?Tfl Travel CH[\\s|A-Z|a-z|/]?", Category.PublicTransport},
+            {"New Southern Railw Eastbourn", Category.PublicTransport},
+            {"Trainline London", Category.PublicTransport},
+            {"The Works Eastbourne", Category.Stationery},
+            {"Uber Eats ZLRH HelpUber helpubercom", Category.Subsistence},
+            {"Wasabi Liverpool Kiosk London", Category.Subsistence},
+            {"Waterstones Eastbourne", Category.Book},
+            {"Yoku Sushi Limited Eastbourne", Category.Subsistence},
+        };
     }
 }
