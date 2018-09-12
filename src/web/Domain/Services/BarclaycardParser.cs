@@ -61,12 +61,12 @@ namespace Calme.Domain.Services
         }
 
         private static Func<string, Category> FindCategory = description =>
-            CategoryMatches
-                .BarclaycardItems
+            BarclaycardCategories
+                .Items
                 .Keys
                 .FirstOrDefault(item => Regex.IsMatch(description, item, RegexOptions.IgnoreCase))
                 .Pipe(key => key == null
                     ? Category.Uncategorized
-                    : CategoryMatches.BarclaycardItems[key]);
+                    : BarclaycardCategories.Items[key]);
     }
 }

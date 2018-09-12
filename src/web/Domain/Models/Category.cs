@@ -11,6 +11,7 @@
         Exclude,
         Fixture,
         Mileage,
+        Postage,
         PublicTransport,
         Sales,
         Software,
