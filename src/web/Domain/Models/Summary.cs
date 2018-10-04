@@ -16,7 +16,7 @@ namespace Calme.Domain.Models
         {
             
             Uncategorised = transactions
-                .Where(t => t.Category == Category.Uncategorized)
+                .Where(t => t.ExpenseCategories == ExpenseCategories.Uncategorized)
                 .Select(t => t.Description)
                 .Distinct()
                 .OrderBy(t => t);
@@ -25,8 +25,8 @@ namespace Calme.Domain.Models
             Total = transactions.Sum(t => t.PaidOut);
             Count = transactions.Count();
             Expenses = transactions
-                .OrderBy(t => t.Category)
-                .GroupBy(t => t.Category)
+                .OrderBy(t => t.ExpenseCategories)
+                .GroupBy(t => t.ExpenseCategories)
                 .Select(i => new Expense(i.Key.ToString(), i.Sum(s => s.PaidOut)));
             
 

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
+using Calme.Domain.Categories;
 using FunctionalWay.Extensions;
 
 namespace Calme.Domain.Models
@@ -9,19 +10,19 @@ namespace Calme.Domain.Models
     {
         public DateTime Date { get; }
         public string Description { get; }
-        public Category Category { get; }
+        public ExpenseCategories ExpenseCategories { get; }
         public decimal PaidOut { get; }
         public decimal PaidIn { get; }
 
         public ExpenseTransaction(DateTime date, 
             string description,
-            Category category,
+            ExpenseCategories expenseCategories,
             decimal paidOut, 
             decimal paidIn)
         {
             Date = date;
             Description = description;
-            Category = category;
+            ExpenseCategories = expenseCategories;
             PaidOut = paidOut;
             PaidIn = paidIn;
         }
@@ -74,11 +75,11 @@ namespace Calme.Domain.Models
             return DateTime.ParseExact(col, "dd MMM yy", CultureInfo.InvariantCulture);
         }
 
-        private static Category FindCategory(string description)
+        private static ExpenseCategories FindCategory(string description)
         {
-            return description.Pipe(d => CategoryMatches.HsbcItems.ContainsKey(d)
-                ? CategoryMatches.HsbcItems[d]
-                : Models.Category.Uncategorized);
+            return description.Pipe(d => Hsbc.Items.ContainsKey(d)
+                ? Hsbc.Items[d]
+                : Models.ExpenseCategories.Uncategorized);
         }
     }
 }

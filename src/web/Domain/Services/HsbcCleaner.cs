@@ -13,5 +13,4 @@ namespace Calme.Domain.Services
                 .Pipe(r => Regex.Replace(r, ", ", ",\"0\""));
         }
     }
-
 }

@@ -1,19 +1,20 @@
 ﻿namespace Calme.Domain.Models
 {
-    public enum Category
+    public enum ExpenseCategories
     {
         Book,
         CarParking,
         Charity,
+        Childcare,
         Communication,
         Equipment,
         Dividend,
         Exclude,
         Fixture,
+        Insurance,
         Mileage,
         Postage,
         PublicTransport,
-        Sales,
         Software,
         Stationery,
         Subscriptions,

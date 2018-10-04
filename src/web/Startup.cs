@@ -23,23 +23,48 @@ namespace Calme
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddTransient<IHttpContextAccessor, HttpContextAccessor>();
-            services.AddTransient<IStatementParser>(s => GetCard(s) == Card.Barclaycard
-                ? (IStatementParser) new BarclaycardParser(s.GetService<ILogger<BarclaycardParser>>())
-                : new HsbcParser(s.GetService<ILogger<HsbcParser>>()));
-            services.AddTransient<IClean>(s => GetCard(s) == Card.Barclaycard
-                ? (IClean) new BarclaycardCleaner()
-                : new HsbcCleaner());
+            services.AddTransient<IStatementParser>(s =>
+            {
+                IStatementParser parser;
+
+                switch (GetCard(s))
+                {
+                    case Card.Barclaycard:
+                        parser = new BarclaycardParser(s.GetService<ILogger<BarclaycardParser>>());
+                        break;
+                    case Card.Hsbc:
+                        parser = new HsbcParser(s.GetService<ILogger<HsbcParser>>());
+                        break;
+                    default:
+                        parser = new AmazoncardParser(s.GetService<ILogger<AmazoncardParser>>());
+                        break;
+                }
+
+                return parser;
+
+            });
+            services.AddTransient<IClean>(s =>
+            {
+                switch (GetCard(s))
+                {
+                    case Card.Barclaycard:
+                        return new BarclaycardCleaner();
+                    case Card.Hsbc:
+                        return new HsbcCleaner();
+                    default:
+                        return new AmazoncardCleaner();
+                }
+            });
+
             services.AddMvc();
         }
 
         private static Card GetCard(IServiceProvider s)
         {
             var httpContext = s.GetService<IHttpContextAccessor>().HttpContext;
-            if (httpContext.Request.Path.Value.Contains("barclaycard"))
-            {
-                return Card.Barclaycard;
-            }
-
+            if (httpContext.Request.Path.Value.Contains("barclaycard")) return Card.Barclaycard;
+            if (httpContext.Request.Path.Value.Contains("amazoncard")) return Card.Amazoncard;
+            
             return Card.Hsbc;
         }
 

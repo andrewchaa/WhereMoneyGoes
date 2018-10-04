@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Text.RegularExpressions;
+using Calme.Domain.Categories;
 using Calme.Domain.Models;
 using FunctionalWay.Extensions;
 using Microsoft.Extensions.Logging;
@@ -60,13 +61,13 @@ namespace Calme.Domain.Services
 
         }
 
-        private static Func<string, Category> FindCategory = description =>
-            BarclaycardCategories
+        private static Func<string, ExpenseCategories> FindCategory = description =>
+            Barclaycard
                 .Items
                 .Keys
                 .FirstOrDefault(item => Regex.IsMatch(description, item, RegexOptions.IgnoreCase))
                 .Pipe(key => key == null
-                    ? Category.Uncategorized
-                    : BarclaycardCategories.Items[key]);
+                    ? ExpenseCategories.Uncategorized
+                    : Barclaycard.Items[key]);
     }
 }

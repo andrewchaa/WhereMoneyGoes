@@ -15,9 +15,7 @@ namespace Calme.Controllers
     [Route("api/[controller]")]
     public class TransactionsController : Controller
     {
-        private readonly ILogger<TransactionsController> _logger;
         private readonly IStatementParser _statementParser;
-        private readonly IStatementCleaner _cleaner;
         private readonly IClean _transactionCleaner;
 
         public TransactionsController(
@@ -25,7 +23,6 @@ namespace Calme.Controllers
             IStatementParser statementParser, 
             IClean transactionCleaner)
         {
-            _logger = logger;
             _statementParser = statementParser;
             _transactionCleaner = transactionCleaner;
         }

@@ -3,6 +3,7 @@
     public enum Card
     {
         Barclaycard,
-        Hsbc
+        Hsbc,
+        Amazoncard
     }
 }

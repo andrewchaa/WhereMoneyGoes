@@ -6,17 +6,17 @@ using System.Text.RegularExpressions;
 using Calme.Domain.Categories;
 using Calme.Domain.Models;
 using FunctionalWay.Extensions;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Microsoft.Extensions.Logging;
 using SanPellgrino;
+using CollectionExtensions = SanPellgrino.CollectionExtensions;
 
 namespace Calme.Domain.Services
 {
-    public class HsbcParser : IStatementParser
+    public class AmazoncardParser : IStatementParser
     {
-        private readonly ILogger<HsbcParser> _logger;
+        private readonly ILogger<AmazoncardParser> _logger;
 
-        public HsbcParser(ILogger<HsbcParser> logger)
+        public AmazoncardParser(ILogger<AmazoncardParser> logger)
         {
             _logger = logger;
         }
@@ -26,9 +26,9 @@ namespace Calme.Domain.Services
             try
             {
                 return columns
-                    .Pipe(cs => _logger.LogInformation($"columns: {cs.ToCsvString()}") )
+                    .Pipe(cs => _logger.LogInformation($"columns: {CollectionExtensions.ToCsvString<string>(cs)}") )
                     .Pipe(cs => new ExpenseTransaction(
-                        cs[0].Pipe(c => DateTime.ParseExact(c, "dd MMM yyyy", CultureInfo.InvariantCulture)),
+                        cs[0].Pipe(c => DateTime.ParseExact(c, "dd/MM/yyyy", CultureInfo.InvariantCulture)),
                         cs[1].Trim(),
                         cs[1].Trim().Pipe(FindCategory),
                         cs[2]
@@ -44,7 +44,7 @@ namespace Calme.Domain.Services
                                 }
                             }),
                         0)
-                );
+                    );
             }
             catch (Exception e)
             {
@@ -54,13 +54,13 @@ namespace Calme.Domain.Services
         }
 
         private static Func<string, ExpenseCategories> FindCategory = description =>
-            Hsbc
+            Amazoncard
                 .Items
                 .Keys
                 .FirstOrDefault(item => Regex.IsMatch(description, item, RegexOptions.IgnoreCase))
                 .Pipe(key => key == null
                     ? ExpenseCategories.Uncategorized
-                    : Hsbc.Items[key]);
+                    : Amazoncard.Items[key]);
         
 
     }

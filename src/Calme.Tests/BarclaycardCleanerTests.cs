@@ -7,7 +7,7 @@ namespace Calme.Tests
     public class BarclaycardCleanerTests
     {
         [Fact]
-        public async Task Clean()
+        public void Clean()
         {
             // arrange
             var row =
