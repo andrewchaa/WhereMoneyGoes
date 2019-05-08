@@ -1,5 +1,5 @@
 using System;
-using Calme.Domain.Models;
+using Wmg.App.Domain.Models;
 using Xunit;
 
 namespace Calme.Tests

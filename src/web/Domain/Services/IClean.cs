@@ -1,4 +1,4 @@
-﻿namespace Calme.Domain.Services
+﻿namespace Wmg.App.Domain.Services
 {
     public interface IClean
     {

@@ -1,7 +1,4 @@
-﻿using System.Text.RegularExpressions;
-using FunctionalWay.Extensions;
-
-namespace Calme.Domain.Services
+﻿namespace Wmg.App.Domain.Services
 {
     public class AmazoncardCleaner : IClean
     {

@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
-using Calme.Domain.Models;
+using Wmg.App.Domain.Models;
 
-namespace Calme.Domain.Categories
+namespace Wmg.App.Domain.Categories
 {
     public class Barclaycard
     {

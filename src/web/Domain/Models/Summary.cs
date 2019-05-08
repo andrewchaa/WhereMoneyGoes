@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Calme.Domain.Models
+namespace Wmg.App.Domain.Models
 {
     public class Summary
     {

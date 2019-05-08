@@ -3,14 +3,14 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Text.RegularExpressions;
-using Calme.Domain.Categories;
-using Calme.Domain.Models;
 using FunctionalWay.Extensions;
 using Microsoft.Extensions.Logging;
 using SanPellgrino;
+using Wmg.App.Domain.Categories;
+using Wmg.App.Domain.Models;
 using CollectionExtensions = SanPellgrino.CollectionExtensions;
 
-namespace Calme.Domain.Services
+namespace Wmg.App.Domain.Services
 {
     public class AmazoncardParser : IStatementParser
     {

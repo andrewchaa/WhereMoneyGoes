@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
-using Calme.Domain.Categories;
 using FunctionalWay.Extensions;
+using Wmg.App.Domain.Categories;
 
-namespace Calme.Domain.Models
+namespace Wmg.App.Domain.Models
 {
     public class ExpenseTransaction
     {

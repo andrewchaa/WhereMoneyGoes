@@ -1,5 +1,5 @@
 ﻿using System.Threading.Tasks;
-using Calme.Domain.Services;
+using Wmg.App.Domain.Services;
 using Xunit;
 
 namespace Calme.Tests

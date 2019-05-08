@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
-using Calme.Domain.Models;
+using Wmg.App.Domain.Models;
 
-namespace Calme.Domain.Services
+namespace Wmg.App.Domain.Services
 {
     public interface IStatementParser
     {

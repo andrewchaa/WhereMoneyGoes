@@ -1,6 +1,6 @@
 ﻿using System;
-using Calme.Domain.Services;
 using Microsoft.Extensions.Logging.Abstractions;
+using Wmg.App.Domain.Services;
 using Xunit;
 
 namespace Calme.Tests

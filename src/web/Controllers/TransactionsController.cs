@@ -1,16 +1,15 @@
 ﻿using System.IO;
 using System.Linq;
 using System.Text;
-using System.Text.RegularExpressions;
 using System.Threading.Tasks;
-using Calme.Domain.Models;
-using Calme.Domain.Services;
 using FunctionalWay.Extensions;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using Wmg.App.Domain.Models;
+using Wmg.App.Domain.Services;
 
-namespace Calme.Controllers
+namespace Wmg.App.Controllers
 {
     [Route("api/[controller]")]
     public class TransactionsController : Controller

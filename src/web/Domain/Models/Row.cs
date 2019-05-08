@@ -3,7 +3,7 @@ using System.Linq;
 using System.Text.RegularExpressions;
 using FunctionalWay.Extensions;
 
-namespace Calme.Domain.Models
+namespace Wmg.App.Domain.Models
 {
     public class Row
     {

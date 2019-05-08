@@ -1,14 +1,14 @@
 ﻿using System;
-using Calme.Domain.Models;
-using Calme.Domain.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using Wmg.App.Domain.Models;
+using Wmg.App.Domain.Services;
 
-namespace Calme
+namespace Wmg.App
 {
     public class Startup
     {
